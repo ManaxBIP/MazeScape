@@ -28,7 +28,7 @@ public class MaFenetre extends JFrame {
         }
     }
     public MaFenetre() throws IOException {
-        super("Maze");
+        super("MazeScape");
         setSize(1000,1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
