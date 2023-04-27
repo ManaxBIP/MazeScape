@@ -41,13 +41,11 @@ public class MaFenetre extends JFrame {
         JLabel pic = new JLabel(new ImageIcon(img));
         panel.add(pic);
 
+        add(panel);
         helloButton = new JButton("Hello");
         helloButton.addActionListener( this::actionPerformed);
-        goodbyeButton = new JButton("Au revoir");
-        goodbyeButton.addActionListener((ActionListener) this::actionPerformed);
 
-        add(helloButton, BorderLayout.NORTH);
-        add(goodbyeButton, BorderLayout.SOUTH);
+        //add(helloButton);
 
 
     }
