@@ -48,5 +48,6 @@ public class MaFenetre extends JFrame {
 
         add(helloButton, BorderLayout.NORTH);
         add(goodbyeButton, BorderLayout.SOUTH);
+
     }
 }
