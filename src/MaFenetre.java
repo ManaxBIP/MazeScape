@@ -33,7 +33,6 @@ public class MaFenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-
         JFrame f = new JFrame("Ajouter une image dans JPanel");
         JPanel panel = new JPanel();
         panel.setBounds(50, 50, 250, 250);
@@ -46,6 +45,7 @@ public class MaFenetre extends JFrame {
         helloButton.addActionListener( this::actionPerformed);
 
         //add(helloButton);
+
 
     }
 }
