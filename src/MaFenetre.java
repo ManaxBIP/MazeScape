@@ -47,6 +47,5 @@ public class MaFenetre extends JFrame {
 
         //add(helloButton);
 
-
     }
 }
