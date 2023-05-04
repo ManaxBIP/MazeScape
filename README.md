@@ -1,5 +1,5 @@
 # MazeScape
 
-* Reguia Dalyll *
-* Leroi Remi *
-* Brun Sasha *
+* Reguia Dalyll 
+* Leroi Remi 
+* Brun Sasha
