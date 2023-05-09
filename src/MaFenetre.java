@@ -11,11 +11,10 @@ public class MaFenetre extends JFrame implements KeyListener {
     private String text = "PLAY GAME";
     private String text2 = "QUIT GAME";
     public int commandNum = 0;
-    public JLabel affText = new JLabel(text);
-    public JLabel affText2 = new JLabel(text2);
     private JButton playButton;
     private JButton exitButton;
-
+    private JPanel bubblePanel1;
+    private JPanel bubblePanel2;
 
     public static void main(String[] args) throws IOException {
         MaFenetre fenetre = new MaFenetre();
@@ -40,22 +39,24 @@ public class MaFenetre extends JFrame implements KeyListener {
         layeredPane.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
         panel.add(pic);
 
-        // Création des boutons et ajout au JLayeredPane
+        // Création des bulles blanches et ajout au JLayeredPane
 
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 32);
-        Color textColor = Color.RED;
+        Color textColor = Color.BLACK;
+        Color backgroundColor = Color.WHITE;
 
+        int bubbleWidth = 400;
+        int bubbleHeight = 40;
 
-        affText.setBounds(400, 550, 200, 100);
-        affText.setFont(font);
-        affText.setForeground(textColor);
-        layeredPane.add(affText);
+        // Bulle "PLAY GAME"
+        bubblePanel1 = createBubblePanel(text, font, textColor, backgroundColor, bubbleWidth, bubbleHeight);
+        bubblePanel1.setBounds(300, 562, bubbleWidth, bubbleHeight);
+        layeredPane.add(bubblePanel1);
 
-
-        affText2.setBounds(400, 600, 200, 100);
-        affText2.setFont(font);
-        affText2.setForeground(textColor);
-        layeredPane.add(affText2);
+        // Bulle "QUIT GAME"
+        bubblePanel2 = createBubblePanel(text2, font, textColor, backgroundColor, bubbleWidth, bubbleHeight);
+        bubblePanel2.setBounds(300, 612, bubbleWidth, bubbleHeight);
+        layeredPane.add(bubblePanel2);
 
         layeredPane.add(panel);
 
@@ -63,6 +64,7 @@ public class MaFenetre extends JFrame implements KeyListener {
 
         pack();
         setVisible(true);
+        updateCursor();
     }
 
     @Override
@@ -103,36 +105,70 @@ public class MaFenetre extends JFrame implements KeyListener {
 
     private void updateCursor() {
         JLayeredPane layeredPane = getLayeredPane();
-        Component[] components = layeredPane.getComponents();
-        for (Component component : components) {
-            if (component instanceof JLabel) {
-                JLabel label = (JLabel) component;
-                if (label.getText().equals(">")) {
-                    layeredPane.remove(label);
-                    break;
-                }
-            }
-        }
+        layeredPane.remove(bubblePanel1);
+        layeredPane.remove(bubblePanel2);
 
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 32);
-        Color textColor = Color.RED;
-        String cursor = ">";
+        Color textColor = Color.BLACK;
+        Color borderColor = Color.BLACK;
+        int borderWidth = 7;
+        int bubbleWidth = 400;
+        int bubbleHeight = 40;
 
         if (commandNum == 0) {
-            JLabel affCursor = new JLabel(cursor);
-            affCursor.setBounds(400 - affText.getText().length() - 20, 550, 200, 100);
-            affCursor.setFont(font);
-            affCursor.setForeground(textColor);
-            layeredPane.add(affCursor);
+            bubblePanel1 = createBorderedPanel(text, font, textColor, borderColor, borderWidth, bubbleWidth, bubbleHeight);
+            bubblePanel1.setBounds(300, 562, bubbleWidth, bubbleHeight);
+            layeredPane.add(bubblePanel1);
         } else if (commandNum == 1) {
-            JLabel affCursor = new JLabel(cursor);
-            affCursor.setBounds(400 - affText2.getText().length() - 20, 600, 200, 100);
-            affCursor.setFont(font);
-            affCursor.setForeground(textColor);
-            layeredPane.add(affCursor);
+            bubblePanel2 = createBorderedPanel(text2, font, textColor, borderColor, borderWidth, bubbleWidth, bubbleHeight);
+            bubblePanel2.setBounds(300, 612, bubbleWidth, bubbleHeight);
+            layeredPane.add(bubblePanel2);
         }
 
         layeredPane.revalidate();
         layeredPane.repaint();
+    }
+
+    private JPanel createBubblePanel(String text, Font font, Color textColor, Color backgroundColor, int bubbleWidth, int bubbleHeight) {
+        return new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(backgroundColor);
+                g2d.fillRoundRect(0, 0, bubbleWidth, bubbleHeight, 0, 0);
+                g2d.setColor(textColor);
+                g2d.setFont(font);
+                FontMetrics fontMetrics = g2d.getFontMetrics();
+                int textWidth = fontMetrics.stringWidth(text);
+                int textHeight = fontMetrics.getHeight();
+                int x = (bubbleWidth - textWidth) / 2;
+                int y = (bubbleHeight - textHeight) / 2 + fontMetrics.getAscent();
+                g2d.drawString(text, x, y);
+                g2d.dispose();
+            }
+        };
+    }
+
+    private JPanel createBorderedPanel(String text, Font font, Color textColor, Color borderColor, int borderWidth, int bubbleWidth, int bubbleHeight) {
+        return new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(borderColor);
+                g2d.setStroke(new BasicStroke(borderWidth));
+                g2d.drawRect(0, 0, bubbleWidth, bubbleHeight);
+                g2d.setColor(textColor);
+                g2d.setFont(font);
+                FontMetrics fontMetrics = g2d.getFontMetrics();
+                int textWidth = fontMetrics.stringWidth(text);
+                int textHeight = fontMetrics.getHeight();
+                int x = (bubbleWidth - textWidth) / 2;
+                int y = (bubbleHeight - textHeight) / 2 + fontMetrics.getAscent();
+                g2d.drawString(text, x, y);
+                g2d.dispose();
+            }
+        };
     }
 }
