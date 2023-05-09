@@ -23,17 +23,6 @@ public class MaFenetre extends JFrame implements KeyListener {
         fenetre.setResizable(false);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == playButton) {
-            JLayeredPane layerpane = getLayeredPane();
-            layerpane.removeAll();
-            layerpane.revalidate();
-            layerpane.repaint();
-        } else if (e.getSource() == exitButton) {
-            this.dispose();
-        }
-    }
-
     public MaFenetre() throws IOException {
         super("MazeScape");
         setSize(1000, 1000);
@@ -93,7 +82,16 @@ public class MaFenetre extends JFrame implements KeyListener {
             }
             updateCursor();
         }
+        if (commandNum == 0 && e.getKeyCode() == KeyEvent.VK_ENTER) {
+            JLayeredPane layeredPane = getLayeredPane();
+            layeredPane.removeAll();
+            layeredPane.revalidate();
+            layeredPane.repaint();
+        } else if (commandNum == 1 && e.getKeyCode() == KeyEvent.VK_ENTER) {
+            dispose();
+        }
     }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
