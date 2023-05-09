@@ -60,16 +60,20 @@ public class MaFenetre extends JFrame {
             String cursor = ">";
             JLabel affCursor = new JLabel(cursor);
             affCursor.setBounds(400-text.length()-20, 550, 200, 100);
+            affCursor.setFont(font);
+            affCursor.setForeground(textColor);
+            layeredPane.add(affCursor);
         }
         String text2 = "QUIT GAME";
         if (commandNum == 1){
             String cursor = ">";
             JLabel affCursor = new JLabel(cursor);
             affCursor.setBounds(400-text2.length()-20, 600, 200, 100);
+            affCursor.setFont(font);
+            affCursor.setForeground(textColor);
+            layeredPane.add(affCursor);
         }
-        affCursor.setFont(font);
-        affCursor.setForeground(textColor);
-        layeredPane.add(affCursor);
+
 
         JLabel affText = new JLabel(text);
         affText.setBounds(400, 550, 200, 100);
