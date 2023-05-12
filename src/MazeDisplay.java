@@ -12,20 +12,29 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable ;
 import java.awt.print.PrinterException ;
 import java.awt.print.PrinterJob;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MazeDisplay extends JPanel implements Printable, ActionListener, KeyListener{
     Maze m1;
+
+    int x = 400;
+    int y = 400;
     int offsetX = 10;
     int offsetY = 10;
     int cellSize = 20;
+    double scale;
 
     Integer moveCounter = 0;
 
     int pointX, pointY, oldX, oldY;
     boolean erase;
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
 
     public MazeDisplay(){
         m1 = new Maze();
@@ -89,6 +98,10 @@ public class MazeDisplay extends JPanel implements Printable, ActionListener, Ke
 
     public void doDrawing(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
+        AffineTransform transform = new AffineTransform();
+        transform.scale(scale, scale);
+        g2d.setTransform(transform);
+        this.repaint();
 
         g2d.setColor(Color.blue);
 
@@ -153,9 +166,9 @@ public class MazeDisplay extends JPanel implements Printable, ActionListener, Ke
             moveCounter++;
         }
 
-        g2d.drawString("Moves: " + moveCounter.toString(), m1.sizeX * cellSize + offsetX + 20, 20);
+        //g2d.drawString("Moves: " + moveCounter.toString(), m1.sizeX * cellSize + offsetX + 20, 20);
         g2d.drawString("Moves: Arrow Keys", m1.sizeX * cellSize + offsetX + 20, 40);
-        g2d.drawString("Moves: P", m1.sizeX * cellSize + offsetX + 20, 60);
+        //g2d.drawString("Moves: P", m1.sizeX * cellSize + offsetX + 20, 60);
 
         if(y == m1.sizeY - 1 && x == m1.sizeX - 1){
             System.out.println("You Won");
@@ -163,17 +176,19 @@ public class MazeDisplay extends JPanel implements Printable, ActionListener, Ke
             System.exit(0);
         }
 
-        g.setColor(Color.GRAY);
-        g.fillRect(oldX - 2, oldY - 2, 4, 4);
+        //g.setColor(Color.GRAY);
+        //g.fillRect(oldX - 2, oldY - 2, 4, 4);
 
         g.setColor(Color.BLACK);
         g.fillRect(pointX - 2, pointY - 2, 4, 4);
+        this.repaint();
     }
 
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         doDrawing(g);
+        this.repaint();
     }
 
     @SuppressWarnings("static-access")
@@ -184,30 +199,42 @@ public class MazeDisplay extends JPanel implements Printable, ActionListener, Ke
 
         if(key.getKeyCode() == key.VK_DOWN){
             pointY = pointY + cellSize;
+            setLocation(x, (int) Math.floor(y - (cellSize * 2.5)));
             if (pointY > getBounds().height){
                 pointY = getBounds().height;
-            }
+            } /*else{
+                offsetY -= cellSize/2;
+            }*/
         }
 
         if(key.getKeyCode() == key.VK_UP){
             pointY = pointY - cellSize;
+            setLocation(x, y + cellSize/2);
             if (pointY < 0){
                 pointY = 0;
-            }
+            } /*else{
+                offsetY += cellSize/2;
+            }*/
         }
 
         if(key.getKeyCode() == key.VK_LEFT){
             pointX = pointX - cellSize;
+            setLocation(x + cellSize/2, y);
             if (pointX < 0){
                 pointX = 0;
-            }
+            } /*else{
+                offsetX += cellSize/2;
+            }*/
         }
 
         if(key.getKeyCode() == key.VK_RIGHT){
             pointX = pointX + cellSize;
+            setLocation((int) Math.floor(x - (cellSize * 2.5)), y);
             if (pointX > getBounds().width){
                 pointX = getBounds().width;
-            }
+            } /*else{
+                offsetX -= cellSize/2;
+            }*/
         }
 
         if (key.getKeyCode() == key.VK_P){
