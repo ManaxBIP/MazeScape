@@ -1,18 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class MaFenetre extends JFrame implements KeyListener {
 
     private String text = "PLAY GAME";
     private String text2 = "QUIT GAME";
     public int commandNum = 0;
-    private JButton playButton;
-    private JButton exitButton;
     private JPanel bubblePanel1;
     private JPanel bubblePanel2;
 
@@ -32,12 +27,14 @@ public class MaFenetre extends JFrame implements KeyListener {
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 1000, 1000);
-        BufferedImage img = ImageIO.read(new File("home.png"));
-        panel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-        JLabel pic = new JLabel(new ImageIcon(img));
+        //BufferedImage img = ImageIO.read(new File("home.png"));
+//        panel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+//        JLabel pic = new JLabel(new ImageIcon(img));
         JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-        panel.add(pic);
+//        layeredPane.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+        PictureLabel pictureLabel = new PictureLabel();
+        //picturePanel.add(pic);
+        panel.setPreferredSize(new Dimension(pictureLabel.getWidth(), pictureLabel.getHeight()));
 
         // Création des bulles blanches et ajout au JLayeredPane
 
@@ -59,12 +56,13 @@ public class MaFenetre extends JFrame implements KeyListener {
         layeredPane.add(bubblePanel2);
 
         layeredPane.add(panel);
+        panel.add(pictureLabel);
 
         add(layeredPane);
 
-        pack();
         setVisible(true);
         updateCursor();
+//        pictureLabel.fadeOut(()->{});
     }
 
     @Override
