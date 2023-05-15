@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MaFenetre extends JFrame implements KeyListener {
 
@@ -12,8 +10,6 @@ public class MaFenetre extends JFrame implements KeyListener {
     public int commandNum = 0;
     private JPanel bubblePanel1;
     private JPanel bubblePanel2;
-    private List<WorldPanel> mondePanels;
-
 
     public static void main(String[] args) throws IOException {
         MaFenetre fenetre = new MaFenetre();
@@ -168,10 +164,10 @@ public class MaFenetre extends JFrame implements KeyListener {
         JPanel worldPanel = new JPanel();
         worldPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel world1Panel = createWorldPanel("World 1", "test.png", false);
-        JPanel world2Panel = createWorldPanel("World 2", "test.png", false);
-        JPanel world3Panel = createWorldPanel("World 3", "test.png", false);
-        JPanel world4Panel = createWorldPanel("World 4", "test.png", true);
+        JPanel world1Panel = createWorldPanel("World 1", "world1.png", false);
+        JPanel world2Panel = createWorldPanel("World 2", "world2.png", true);
+        JPanel world3Panel = createWorldPanel("World 3", "world3.png", true);
+        JPanel world4Panel = createWorldPanel("World 4", "world4.png", true);
 
         worldPanel.add(world1Panel);
         worldPanel.add(world2Panel);
@@ -190,27 +186,132 @@ public class MaFenetre extends JFrame implements KeyListener {
         worldPanel.setLayout(new BorderLayout());
 
         ImageIcon imageIcon = new ImageIcon(imageFileName);
-        JLabel imageLabel = new JLabel(imageIcon);
+        Image originalImage = imageIcon.getImage();
+
+        int scaledWidth;
+        int scaledHeight;
+        if (locked) {
+            scaledWidth = originalImage.getWidth(null) / 3;
+            scaledHeight = originalImage.getHeight(null) / 3;
+        } else {
+            scaledWidth = originalImage.getWidth(null) / 3;
+            scaledHeight = originalImage.getHeight(null) / 3;
+        }
+
+        Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel imageLabel = new JLabel(scaledIcon);
 
         if (locked) {
-            ImageIcon cadenaIcon = new ImageIcon("cad.png");
-            Image resizedImage = cadenaIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-            ImageIcon resizedCadenaIcon = new ImageIcon(resizedImage);
-            JLabel cadenaLabel = new JLabel(resizedCadenaIcon);
+            ImageIcon cadenaIcon;
+            if (worldName.equals("World 1")) {
+                cadenaIcon = new ImageIcon("world1lock.png");
+            } else if (worldName.equals("World 2")) {
+                cadenaIcon = new ImageIcon("world2lock.png");
+            } else if (worldName.equals("World 3")) {
+                cadenaIcon = new ImageIcon("world3lock.png");
+            } else if (worldName.equals("World 4")) {
+                cadenaIcon = new ImageIcon("world4lock.png");
+            } else {
+                cadenaIcon = new ImageIcon("cad.png");
+            }
+            int scaledWidth2 = cadenaIcon.getIconWidth() / 3;
+            int scaledHeight2 = cadenaIcon.getIconHeight() / 3;
+
+            Image originalCadenaImage = cadenaIcon.getImage();
+            Image scaledCadenaImage = originalCadenaImage.getScaledInstance(scaledWidth2, scaledHeight2, Image.SCALE_SMOOTH);
+            ImageIcon scaledCadenaIcon = new ImageIcon(scaledCadenaImage);
+
+            JLabel cadenaLabel = new JLabel(scaledCadenaIcon);
             worldPanel.add(cadenaLabel, BorderLayout.CENTER);
         } else {
             imageLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    remove(getLayeredPane());
+                    openLevelPage();
+                    revalidate();
+                    repaint();
                     System.out.println("Opening " + worldName + "...");
                 }
             });
+
             worldPanel.add(imageLabel, BorderLayout.CENTER);
         }
 
         return worldPanel;
     }
 
-}
 
+
+    private void openLevelPage() {
+        JPanel levelPanel = new JPanel();
+        levelPanel.setLayout(new GridLayout(2, 2));
+
+        JPanel level1Panel = createLevelPanel("Level 1", "level.png", false);
+        JPanel level2Panel = createLevelPanel("Level 2", "level.png", false);
+        JPanel level3Panel = createLevelPanel("Level 3", "level.png", true);
+        JPanel level4Panel = createLevelPanel("Level 4", "level.png", true);
+
+        levelPanel.add(level1Panel);
+        levelPanel.add(level2Panel);
+        levelPanel.add(level3Panel);
+        levelPanel.add(level4Panel);
+
+        getContentPane().removeAll();
+        getContentPane().add(levelPanel);
+
+        revalidate();
+        repaint();
+    }
+
+    private JPanel createLevelPanel(String levelName, String imageFileName, boolean locked) {
+        JPanel levelPanel = new JPanel();
+        levelPanel.setLayout(new BorderLayout());
+
+        ImageIcon imageIcon = new ImageIcon(imageFileName);
+        JLabel imageLabel = new JLabel(imageIcon);
+
+        int scaledWidth = (int) (imageIcon.getIconWidth()/1.5);;
+        int scaledHeight = (int) (imageIcon.getIconHeight()/1.5);;
+
+        Image originalImage = imageIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel scaledImageLabel = new JLabel(scaledIcon);
+
+        if (locked) {
+            ImageIcon cadenaIcon;
+            cadenaIcon = new ImageIcon("levellock.png");
+
+            int scaledWidth2 = (int) (cadenaIcon.getIconWidth()/1.5);
+            int scaledHeight2 = (int) (cadenaIcon.getIconHeight()/1.5);
+
+            Image originalCadenaImage = cadenaIcon.getImage();
+            Image scaledCadenaImage = originalCadenaImage.getScaledInstance(scaledWidth2, scaledHeight2, Image.SCALE_SMOOTH);
+            ImageIcon scaledCadenaIcon = new ImageIcon(scaledCadenaImage);
+
+            JLabel cadenaLabel = new JLabel(scaledCadenaIcon);
+            levelPanel.add(cadenaLabel, BorderLayout.CENTER);
+        } else {
+            levelPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("Opening " + levelName + "...");
+                }
+            });
+
+            levelPanel.add(scaledImageLabel, BorderLayout.CENTER);
+        }
+
+        // Ajouter le texte du nom du niveau
+        JLabel nameLabel = new JLabel(levelName);
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+        levelPanel.add(nameLabel, BorderLayout.NORTH);
+
+        return levelPanel;
+    }
+
+
+}
 
