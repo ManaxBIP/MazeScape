@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MaFenetre extends JFrame implements KeyListener {
 
@@ -10,6 +12,8 @@ public class MaFenetre extends JFrame implements KeyListener {
     public int commandNum = 0;
     private JPanel bubblePanel1;
     private JPanel bubblePanel2;
+    private List<WorldPanel> mondePanels;
+
 
     public static void main(String[] args) throws IOException {
         MaFenetre fenetre = new MaFenetre();
@@ -27,16 +31,9 @@ public class MaFenetre extends JFrame implements KeyListener {
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 1000, 1000);
-        //BufferedImage img = ImageIO.read(new File("home.png"));
-//        panel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-//        JLabel pic = new JLabel(new ImageIcon(img));
         JLayeredPane layeredPane = new JLayeredPane();
-//        layeredPane.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
         PictureLabel pictureLabel = new PictureLabel();
-        //picturePanel.add(pic);
         panel.setPreferredSize(new Dimension(pictureLabel.getWidth(), pictureLabel.getHeight()));
-
-        // Création des bulles blanches et ajout au JLayeredPane
 
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 32);
         Color textColor = Color.BLACK;
@@ -45,12 +42,9 @@ public class MaFenetre extends JFrame implements KeyListener {
         int bubbleWidth = 400;
         int bubbleHeight = 40;
 
-        // Bulle "PLAY GAME"
         bubblePanel1 = createBubblePanel(text, font, textColor, backgroundColor, bubbleWidth, bubbleHeight);
         bubblePanel1.setBounds(300, 562, bubbleWidth, bubbleHeight);
         layeredPane.add(bubblePanel1);
-
-        // Bulle "QUIT GAME"
         bubblePanel2 = createBubblePanel(text2, font, textColor, backgroundColor, bubbleWidth, bubbleHeight);
         bubblePanel2.setBounds(300, 612, bubbleWidth, bubbleHeight);
         layeredPane.add(bubblePanel2);
@@ -62,7 +56,6 @@ public class MaFenetre extends JFrame implements KeyListener {
 
         setVisible(true);
         updateCursor();
-//        pictureLabel.fadeOut(()->{});
     }
 
     @Override
@@ -83,29 +76,27 @@ public class MaFenetre extends JFrame implements KeyListener {
             updateCursor();
         }
         if (commandNum == 0 && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            JLayeredPane layeredPane = getLayeredPane();
-            layeredPane.removeAll();
-            layeredPane.revalidate();
-            layeredPane.repaint();
+            remove(getLayeredPane());
+            openWorldPage();
+            revalidate();
+            repaint();
         } else if (commandNum == 1 && e.getKeyCode() == KeyEvent.VK_ENTER) {
             dispose();
         }
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e){
     }
 
     private void updateCursor() {
         JLayeredPane layeredPane = getLayeredPane();
         layeredPane.remove(bubblePanel1);
         layeredPane.remove(bubblePanel2);
-
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 32);
         Color textColor = Color.BLACK;
         Color borderColor = Color.BLACK;
@@ -169,4 +160,57 @@ public class MaFenetre extends JFrame implements KeyListener {
             }
         };
     }
+
+    private void openWorldPage() {
+        bubblePanel1.setVisible(false);
+        bubblePanel2.setVisible(false);
+
+        JPanel worldPanel = new JPanel();
+        worldPanel.setLayout(new GridLayout(2, 2));
+
+        JPanel world1Panel = createWorldPanel("World 1", "test.png", false);
+        JPanel world2Panel = createWorldPanel("World 2", "test.png", false);
+        JPanel world3Panel = createWorldPanel("World 3", "test.png", false);
+        JPanel world4Panel = createWorldPanel("World 4", "test.png", true);
+
+        worldPanel.add(world1Panel);
+        worldPanel.add(world2Panel);
+        worldPanel.add(world3Panel);
+        worldPanel.add(world4Panel);
+
+        getContentPane().removeAll();
+        getContentPane().add(worldPanel);
+
+        revalidate();
+        repaint();
+    }
+
+    private JPanel createWorldPanel(String worldName, String imageFileName, boolean locked) {
+        JPanel worldPanel = new JPanel();
+        worldPanel.setLayout(new BorderLayout());
+
+        ImageIcon imageIcon = new ImageIcon(imageFileName);
+        JLabel imageLabel = new JLabel(imageIcon);
+
+        if (locked) {
+            ImageIcon cadenaIcon = new ImageIcon("cad.png");
+            Image resizedImage = cadenaIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            ImageIcon resizedCadenaIcon = new ImageIcon(resizedImage);
+            JLabel cadenaLabel = new JLabel(resizedCadenaIcon);
+            worldPanel.add(cadenaLabel, BorderLayout.CENTER);
+        } else {
+            imageLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("Opening " + worldName + "...");
+                }
+            });
+            worldPanel.add(imageLabel, BorderLayout.CENTER);
+        }
+
+        return worldPanel;
+    }
+
 }
+
+
