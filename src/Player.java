@@ -53,11 +53,12 @@ public class Player extends Entity{
 
     public void affecterMazeDp(MazeDisplay md) {
         this.md = md;
+        md.setPlayer(this);
     }
     public void setDefaultValues() {
         worldX = 100;
         worldY = 100;
-        speed = 4;
+        speed = 1;
         direction = "down";
     }
     public void update() {
@@ -66,18 +67,17 @@ public class Player extends Entity{
             inactive = false;
             if (keyH.upPressed == true) {
                 direction = "up";
-                worldY -= speed;
+                worldY += speed;
 
             } else if(keyH.downPressed == true){
                 direction = "down";
-                worldY += speed;
+                worldY -= speed;
             } else if(keyH.leftPressed == true) {
                 direction = "left";
-                worldX -= speed;
-            } else if(keyH.rightPressed == true) {
-                System.out.println(worldX);
-                direction = "right";
                 worldX += speed;
+            } else if(keyH.rightPressed == true) {
+                direction = "right";
+                worldX -= speed;
             }
 
             spriteCounter++;
@@ -172,6 +172,13 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, md.pointX-2, md.pointY-2, 4, 4, null);
+        g2.drawImage(image, md.pointX-2, md.pointY-2, 10, 10, null);
+    }
+
+    public int getX() {
+        return this.worldX;
+    }
+    public int getY() {
+        return this.worldY;
     }
 }
