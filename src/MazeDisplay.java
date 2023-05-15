@@ -16,7 +16,7 @@ public class MazeDisplay extends JPanel {
     double scale;
     int offsetX = 10;
     int offsetY = 10;
-    int cellSize = 20;
+    int cellSize = 23;
     Tile brick = new Tile();
     int pointX, pointY, oldX, oldY;
     boolean erase;
@@ -25,16 +25,6 @@ public class MazeDisplay extends JPanel {
 
     Player player;
 
-
-    public MazeDisplay(GamePanel gp) {
-        this.gp = gp;
-        m1 = new Maze();
-        pointX = offsetX + cellSize / 2;
-        pointY = offsetY + cellSize / 2;
-        oldX = pointX;
-        oldY = pointY;
-        gp.setLocation(400, 400);
-    }
 
     public MazeDisplay(Maze m2, GamePanel gp) {
         this.gp = gp;
@@ -91,12 +81,12 @@ public class MazeDisplay extends JPanel {
         g2d.clearRect(0, 0, w, h);
 
         // Calcul du décalage en fonction de la position du joueur
-        int playerOffsetX = player.getX() - (w / 2);
-        int playerOffsetY = player.getY() - (h / 2);
+        int playerOffsetX = player.getX() - (w / 2) + (cellSize/2);
+        int playerOffsetY = player.getY() - (h / 2) + (cellSize/2);
 
         // Mise à jour des coordonnées offsetX et offsetY
-        offsetX = playerOffsetX;
-        offsetY = playerOffsetY;
+        offsetX = playerOffsetX-58;
+        offsetY = playerOffsetY-59;
 
         Path2D mazeShape = new Path2D.Double();
         int x, y;

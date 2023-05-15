@@ -6,7 +6,7 @@ public class MazePanel extends JPanel {
 
     public MazePanel(Maze maze) {
         this.maze = maze;
-        System.out.println(maze.sizeX);
+        //System.out.println(maze.sizeX);
         System.out.println("Bonjour");
     }
 

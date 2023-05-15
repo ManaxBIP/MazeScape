@@ -59,7 +59,7 @@ public class Player extends Entity{
         worldX = 100;
         worldY = 100;
         speed = 1;
-        direction = "down";
+        direction = "right";
     }
     public void update() {
 
@@ -172,7 +172,7 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, md.pointX-2, md.pointY-2, 10, 10, null);
+        g2.drawImage(image, 54, 60, 10, 10, null);
     }
 
     public int getX() {

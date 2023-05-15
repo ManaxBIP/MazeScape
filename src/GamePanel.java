@@ -9,6 +9,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int tileSize = originalTileSize * scale;
 
+    EnvironmentManager eManager  = new EnvironmentManager(this);
     Thread gameThread;
 
     KeyHandler keyH = new KeyHandler();
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+        eManager.setup();
     }
     @Override
     public void run() {
@@ -74,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         tileM.draw(g2);
         player.draw(g2);
+        eManager.draw(g2);
         g2.dispose();
     }
 }

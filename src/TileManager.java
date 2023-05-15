@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class TileManager {
     private double zoom = 12.5;
-    int sizeX = 15;
-    int sizeY = 15;
+    int sizeX = 8;
+    int sizeY = 4;
     int cellSize = 100;
     MazeDisplay md;
 
