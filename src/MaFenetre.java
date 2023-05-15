@@ -270,7 +270,6 @@ public class MaFenetre extends JFrame implements KeyListener {
         levelPanel.setLayout(new BorderLayout());
 
         ImageIcon imageIcon = new ImageIcon(imageFileName);
-        JLabel imageLabel = new JLabel(imageIcon);
 
         int scaledWidth = (int) (imageIcon.getIconWidth()/1.5);;
         int scaledHeight = (int) (imageIcon.getIconHeight()/1.5);;
@@ -304,7 +303,6 @@ public class MaFenetre extends JFrame implements KeyListener {
             levelPanel.add(scaledImageLabel, BorderLayout.CENTER);
         }
 
-        // Ajouter le texte du nom du niveau
         JLabel nameLabel = new JLabel(levelName);
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
         levelPanel.add(nameLabel, BorderLayout.NORTH);
