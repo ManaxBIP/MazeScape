@@ -3,7 +3,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class TileManager {
-    private double zoom = 5.0;
+    private double zoom = 12.5;
     int sizeX = 15;
     int sizeY = 15;
     int cellSize = 100;
