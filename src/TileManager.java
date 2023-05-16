@@ -2,8 +2,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-public class TileManager {
-    private double zoom = 12.5;
+    public class TileManager {
+    private double zoom = 8;
     int sizeX = 8;
     int sizeY = 4;
     int cellSize = 100;

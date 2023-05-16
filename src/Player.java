@@ -7,6 +7,7 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
     MazeDisplay md;
+
     public int screenX;
     public int screenY;
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -78,6 +79,7 @@ public class Player extends Entity{
             } else if(keyH.rightPressed == true) {
                 direction = "right";
                 worldX -= speed;
+
             }
 
             spriteCounter++;

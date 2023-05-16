@@ -16,7 +16,6 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_UP) {
             upPressed=true;
-            System.out.println("Ca marche");
         }
         if (code == KeyEvent.VK_DOWN) {
             downPressed=true;
