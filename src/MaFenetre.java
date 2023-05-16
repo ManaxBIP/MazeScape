@@ -20,6 +20,7 @@ public class MaFenetre extends JFrame implements KeyListener {
     private boolean lock3level = true;
     private boolean lock4level = true;
 
+    private String worldnames = "";
 
     public static void main(String[] args) throws IOException {
         MaFenetre fenetre = new MaFenetre();
@@ -243,6 +244,7 @@ public class MaFenetre extends JFrame implements KeyListener {
                     revalidate();
                     repaint();
                     System.out.println("Opening " + worldName + "...");
+                    worldnames = worldName;
                 }
             });
 
@@ -258,10 +260,10 @@ public class MaFenetre extends JFrame implements KeyListener {
         JPanel levelPanel = new JPanel();
         levelPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel level1Panel = createLevelPanel("Level 1", "level.png", lock1level);
-        JPanel level2Panel = createLevelPanel("Level 2", "level.png", lock2level);
-        JPanel level3Panel = createLevelPanel("Level 3", "level.png", lock3level);
-        JPanel level4Panel = createLevelPanel("Level 4", "level.png", lock4level);
+        JPanel level1Panel = createLevelPanel("Level 1", "level.png", lock1level,worldnames);
+        JPanel level2Panel = createLevelPanel("Level 2", "level.png", lock2level,worldnames);
+        JPanel level3Panel = createLevelPanel("Level 3", "level.png", lock3level,worldnames);
+        JPanel level4Panel = createLevelPanel("Level 4", "level.png", lock4level,worldnames);
 
         levelPanel.add(level1Panel);
         levelPanel.add(level2Panel);
@@ -275,7 +277,7 @@ public class MaFenetre extends JFrame implements KeyListener {
         repaint();
     }
 
-    private JPanel createLevelPanel(String levelName, String imageFileName, boolean locked) {
+    private JPanel createLevelPanel(String levelName, String imageFileName, boolean locked, String worldName) {
         JPanel levelPanel = new JPanel();
         levelPanel.setLayout(new BorderLayout());
 
@@ -307,7 +309,7 @@ public class MaFenetre extends JFrame implements KeyListener {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     System.out.println("Opening " + levelName + "...");
-                    if (levelName == "Level 1"){
+                    if (levelName == "Level 1" && worldName == "World 1"){
                         //ICI DALYL FAUT QUE TU METTE LE NIVEAU
                         //if (level == finish){
                         //lock2level = false;
