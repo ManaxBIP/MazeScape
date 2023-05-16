@@ -249,7 +249,7 @@ public class MaFenetre extends JFrame implements KeyListener {
         levelPanel.setLayout(new GridLayout(2, 2));
 
         JPanel level1Panel = createLevelPanel("Level 1", "level.png", false);
-        JPanel level2Panel = createLevelPanel("Level 2", "level.png", false);
+        JPanel level2Panel = createLevelPanel("Level 2", "level.png", true);
         JPanel level3Panel = createLevelPanel("Level 3", "level.png", true);
         JPanel level4Panel = createLevelPanel("Level 4", "level.png", true);
 
@@ -297,6 +297,9 @@ public class MaFenetre extends JFrame implements KeyListener {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     System.out.println("Opening " + levelName + "...");
+                    if (levelName == "Level 1"){
+                        //ICI DALYL FAUT QUE TU METTE LE NIVEAU
+                    }
                 }
             });
 

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d210c84d-d200-44d6-ad31-20da7d842b06" name="Changes" comment="Add world and lvl on menu">
-      <change beforePath="$PROJECT_DIR$/src/MaFenetre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MaFenetre.java" afterDir="false" />
-    </list>
+    <list default="true" id="d210c84d-d200-44d6-ad31-20da7d842b06" name="Changes" comment="modif" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +38,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1684166199497</updated>
-      <workItem from="1684166201619" duration="5875000" />
+      <workItem from="1684166201619" duration="5931000" />
     </task>
     <task id="LOCAL-00001" summary="Add world and lvl on menu">
       <created>1684187010676</created>
@@ -49,7 +47,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684187010676</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="modif">
+      <created>1684187102913</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684187102913</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -57,6 +62,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add world and lvl on menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add world and lvl on menu" />
+    <MESSAGE value="modif" />
+    <option name="LAST_COMMIT_MESSAGE" value="modif" />
   </component>
 </project>
