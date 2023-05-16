@@ -10,12 +10,9 @@ public class MaFenetre extends JFrame implements KeyListener {
     public int commandNum = 0;
     private JPanel bubblePanel1;
     private JPanel bubblePanel2;
-
-    private boolean lock1world = false;
     private boolean lock2world = true;
     private boolean lock3world = true;
     private boolean lock4world = true;
-    private boolean lock1level = false;
     private boolean lock2level = true;
     private boolean lock3level = true;
     private boolean lock4level = true;
@@ -175,7 +172,7 @@ public class MaFenetre extends JFrame implements KeyListener {
         JPanel worldPanel = new JPanel();
         worldPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel world1Panel = createWorldPanel("World 1", "world1.png", lock1world);
+        JPanel world1Panel = createWorldPanel("World 1", "world1.png", false);
         JPanel world2Panel = createWorldPanel("World 2", "world2.png", lock2world);
         JPanel world3Panel = createWorldPanel("World 3", "world3.png", lock3world);
         JPanel world4Panel = createWorldPanel("World 4", "world4.png", lock4world);
@@ -260,7 +257,7 @@ public class MaFenetre extends JFrame implements KeyListener {
         JPanel levelPanel = new JPanel();
         levelPanel.setLayout(new GridLayout(2, 2));
 
-        JPanel level1Panel = createLevelPanel("Level 1", "level.png", lock1level,worldnames);
+        JPanel level1Panel = createLevelPanel("Level 1", "level.png", false,worldnames);
         JPanel level2Panel = createLevelPanel("Level 2", "level.png", lock2level,worldnames);
         JPanel level3Panel = createLevelPanel("Level 3", "level.png", lock3level,worldnames);
         JPanel level4Panel = createLevelPanel("Level 4", "level.png", lock4level,worldnames);
